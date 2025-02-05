@@ -3,145 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ricardão Leveling</title>
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <title>VGB Leveling</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <style>
+        @font-face {
+        font-family: 'Solo Level';
+        src: url('fonts/SoloLevel.ttf') format('truetype'); 
+        font-weight: normal;
+        font-style: normal;
+        }
+
+        /* Aplicando a fonte */
+        h1, h2, h3 {
+        font-family: 'Solo Level', sans-serif;
+        }
+
         body {
-            font-family: 'Arial', sans-serif;
-            max-width: 600px;
-            margin: auto;
-            padding: 20px;
-            background-color: #1e1e2e;
-            color: #ffffff;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            background-color: #0a0f1e;
+            color: white;
             text-align: center;
+            font-family: Arial, sans-serif;
         }
-        h1, h2 {
-            color: #f39c12;
-        }
-        h2 {
-            font-family: 'Press Start 2P', cursive;
-            font-size: 2em;
-        }
-        .level-container {
-            margin-bottom: 20px;
-        }
-        .level {
-            font-size: 1.5em;
-            font-weight: bold;
-            color: #e67e22;
-        }
-        .task {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: #2c2c3d;
-            padding: 10px;
-            margin: 5px 0;
-            border-radius: 5px;
-            transition: 0.3s;
-            cursor: pointer;
-        }
-        .task:hover {
-            background: #3d3d5c;
-        }
-        input[type="checkbox"] {
-            transform: scale(1.2);
-        }
-        button {
-            margin-top: 10px;
-            padding: 10px;
-            background-color: #f39c12;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            color: #1e1e2e;
-            font-weight: bold;
-        }
-        button:hover {
-            background-color: #e67e22;
-        }
-        .footer {
-            margin-top: 40px;
-            font-size: 0.9em;
-            color: #bbb;
+        h1 {
+            font-family: 'Friz Quadrata', sans-serif;
+            font-size: 36px;
+            text-transform: uppercase;
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
-
-    <h1>Ricardão Leveling</h1>
-    <div class="level-container">
-        <h2>Nível Atual: <span id="level" class="level">1</span></h2>
-        <p>Pontos: <span id="points">0</span></p>
-    </div>
-
-    <div class="task-container">
-        <div class="task"><input type="checkbox" class="task-checkbox" onclick="completeTask(this)"> 📖 Assistir às aulas e revisar o conteúdo</div>
-        <div class="task"><input type="checkbox" class="task-checkbox" onclick="completeTask(this)"> ✏️ Resolver exercícios e atividades escolares</div>
-        <div class="task"><input type="checkbox" class="task-checkbox" onclick="completeTask(this)"> 📚 Avançar em leituras obrigatórias e anotações</div>
-        <div class="task"><input type="checkbox" class="task-checkbox" onclick="completeTask(this)"> 🏋️ Fazer um treino curto para ganhar massa muscular</div>
-        <div class="task"><input type="checkbox" class="task-checkbox" onclick="completeTask(this)"> 🎥 Assistir a um episódio de documentário (se possível)</div>
-        <div class="task"><input type="checkbox" class="task-checkbox" onclick="completeTask(this)"> ✍️ Escrever sobre o que aprendeu/refletiu</div>
-        <div class="task"><input type="checkbox" class="task-checkbox" onclick="completeTask(this)"> 🎮 Jogar um pouco para relaxar</div>
-        <div class="task"><input type="checkbox" class="task-checkbox" onclick="completeTask(this)"> 📺 Ler ou assistir algo interessante</div>
-        <div class="task"><input type="checkbox" class="task-checkbox" onclick="completeTask(this)"> 📂 Organizar materiais escolares</div>
-        <div class="task"><input type="checkbox" class="task-checkbox" onclick="completeTask(this)"> 🏡 Fazer pequenas tarefas domésticas, se necessário</div>
-    </div>
-
-    <button onclick="resetTasks()">🔄 Resetar Lista</button>
-    
-    <div class="footer">
-        <p>© 2025 Ricardão Leveling | Todos os direitos reservados.</p>
-    </div>
-
-    <script>
-        // Inicializar nível e pontos a partir do localStorage
-        function initializeLevel() {
-            let level = localStorage.getItem('level') || 1;
-            let points = localStorage.getItem('points') || 0;
-            document.getElementById('level').innerText = level;
-            document.getElementById('points').innerText = points;
-        }
-
-        // Função para completar uma tarefa
-        function completeTask(checkbox) {
-            let points = parseInt(localStorage.getItem('points') || 0);
-            let level = parseInt(localStorage.getItem('level') || 1);
-            if (checkbox.checked) {
-                points += 10; // Pontos por tarefa completada
-            } else {
-                points -= 10; // Deduzir pontos se a tarefa for desmarcada
-            }
-
-            // Atualizar nível baseado nos pontos
-            if (points >= level * 100) {
-                level++;
-                points = 0; // Resetar pontos ao subir de nível
-            }
-
-            localStorage.setItem('points', points);
-            localStorage.setItem('level', level);
-            document.getElementById('points').innerText = points;
-            document.getElementById('level').innerText = level;
-        }
-
-        // Função para resetar as tarefas e o nível
-        function resetTasks() {
-            localStorage.setItem('points', 0);
-            localStorage.setItem('level', 1);
-            document.querySelectorAll('.task-checkbox').forEach(checkbox => checkbox.checked = false);
-            initializeLevel();
-        }
-
-        // Chama a inicialização quando a página carregar
-        window.onload = function() {
-            initializeLevel();
-        }
-    </script>
-
+    <h1>VG Leveling</h1>
 </body>
 </html>
-
